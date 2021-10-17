@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Click Game(vanillaJS)</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/index.js"></script>
+</head>
+<body>
+<div class="component">
+
+  <section class="menu">
+    <fieldset class="game_mode">
+      <legend>Pick game mode</legend>
+      <select name="level">
+        <option value="0" onclick="initChipboardGame(0)">Default</option>
+        <option value="1" onclick="initChipboardGame(1)">easyMode</option>
+        <option value="2" onclick="initChipboardGame(2)">normalMode</option>
+        <option value="3" onclick="initChipboardGame(3)">hardMode</option>
+      </select>
+    </fieldset>
+
+    <fieldset class="game_name">
+      <legend>User name</legend>
+      <input type="text" placeholder="Enter you name" required>
+      <span class="error" >
+        Name is <strong>required</strong>
+      </span>
+    </fieldset>
+
+    <button type="submit" onclick="onStartGame()">Play</button>
+  </section>
+  <section id="BoardWidth" class="board" >
+    <div class="board-item"></div>
+    <div class="board-item"></div>
+    <div class="board-item"></div>
+    <div class="board-item"></div>
+    <div class="board-item"></div>
+    <div class="board-item"></div>
+    <div class="board-item"></div>
+    <div class="board-item"></div>
+    <div class="board-item active"></div>
+    <div class="board-item win"></div>
+    <div class="board-item losing"></div>
+    <div class="board-item"></div>
+<!--    <div *ngFor="let square of chipboardSquares; let i = index" class="container-item" [attr.data-index]="i"
+         [class.active]="square.active"
+         [class.win]="square.win"
+         [class.losing]="square.losing"
+         (click)="userClickSquare(square)"
+    ></div>-->
+  </section>
+</div>
+
+</body>
+</html>
