@@ -14,6 +14,7 @@
   --color-Purple: Purple;
   --color-Indigo: Indigo;
   --color-Black: Black;
+  --color-Grey: Grey;
   --color-White: White;
 }
 
@@ -92,36 +93,58 @@
 }
 
 
-.component {
-  .menu {
+.game {
+  .options {
     display: flex;
     justify-content: center;
     align-items: stretch;
 
-    .game_mode {
-    }
+    &__mode {}
 
-    .game_name {
+    &__name {
       .error {
-        display: none;
+        opacity: 0;
+        display: block;
       }
 
       input:invalid + .error {
-        display: block;
+        opacity: 1;
       }
     }
 
     button[type='submit'] {
       align-self: center;
       padding: 10px 25px;
+      pointer-events: none;
+      cursor: default;
+      background: var(--color-Grey);
+    }
+    &:valid > button[type='submit'] {
+      pointer-events: auto;
+      background: var(--color-White);
       cursor: pointer;
     }
   }
 
+  &__wrap{
+    width: 35%;
+    margin: 0 auto;
+  }
+  &__info{
+    opacity: 1;
+    width: 100%;
+    margin-top: 30px;
+    padding: 15px;
+    box-shadow: 0 0 1px rgb(0 0 0 / 30%);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+  }
+
   .board {
     border: 2px solid #dbdbdb;
-    padding: 40px;
-    margin: 70px auto;
+    padding: 50px;
+    margin: 50px auto 0;
     background: #f3f3f3;
     box-shadow: 0 0 20px 0 #d5d5d5;
     min-height: 200px;
@@ -132,14 +155,14 @@
        */
 
 
-
     /* --flex-- */
     @include flex_board;
 
-    /* --grid - 2-3 колонки -- */
+    /* --grid - 2-4 колонки -- */
     //@include grid_board(3);
 
-    .board-item {
+
+    &__item {
       border: 1px solid #d1d1d1;
       position: relative;
       z-index: 0;

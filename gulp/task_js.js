@@ -18,10 +18,10 @@ const cached = require('gulp-cached');
 //const connect   = require('gulp-connect');
 // 3 js
 // const concat = require('gulp-concat');
-const fixmyjs = require("gulp-fixmyjs");
+// const fixmyjs = require("gulp-fixmyjs");
 // const minifyJS = require('gulp-minify'); // https://www.npmjs.com/package/gulp-minify
 // const uglify = require('gulp-uglify'); // https://www.npmjs.com/package/gulp-uglify
-const uglifyES= require('gulp-uglify-es').default; // https://www.npmjs.com/package/gulp-uglify-es
+// const uglifyES= require('gulp-uglify-es').default; // https://www.npmjs.com/package/gulp-uglify-es
 
 
 //----------------------------------------------
@@ -63,17 +63,17 @@ module.exports = function (options) {
         return multipipe(
             gulp.src([options.src_dev, '!./assets/js/vendor/**/*.js']),   // Где ищим исключая vendor
             debug({title: "Нашли : "}),
-            cached(options.src_dev),      // фильтер файлов сравнением содержимого работает через "watch"
-            fixmyjs(),             // исправляет простые ошибки
+        //    cached(options.src_dev),      // фильтер файлов сравнением содержимого работает через "watch"
+        //   fixmyjs(),             // исправляет простые ошибки
             // concat('all.js'),  // Собираем все JS, кроме тех которые находятся в ./assets/js/vendor/**
             // minifyJS(),
             // uglify(), // vanilla js
-            uglifyES(uglifyOptions), // ES
+        //    uglifyES(), // ES
             gulp.dest(options.src_project),  // Куда записываем
             debug({title: "Записали : "}),
             // livereload()      // Работает через плагин и 1 строчку в наблюдении и без РНР
         ).on('error', notify.onError(function (err) {
-            console.log( err);
+            console.log(err);
             return {
                 title: 'JavaScript',
                 message: err.message,

@@ -9,20 +9,17 @@
   <script src="./js/index.js"></script>
 </head>
 <body>
-<div class="component">
 
-  <section class="menu">
-    <fieldset class="game_mode">
+<main class="game">
+  <form class="options" action="#" method="get" name="options" autocomplete="on" onsubmit="onStartGame(event)">
+    <fieldset class="options__mode">
       <legend>Pick game mode</legend>
-      <select name="level">
-        <option value="0" onclick="initChipboardGame(0)">Default</option>
-        <option value="1" onclick="initChipboardGame(1)">easyMode</option>
-        <option value="2" onclick="initChipboardGame(2)">normalMode</option>
-        <option value="3" onclick="initChipboardGame(3)">hardMode</option>
+      <select name="level" id="List_difficulty" onchange="onChangBoard(event)">
+        <option value="null" selected >null</option>
       </select>
     </fieldset>
 
-    <fieldset class="game_name">
+    <fieldset class="options__name">
       <legend>User name</legend>
       <input type="text" placeholder="Enter you name" required>
       <span class="error" >
@@ -30,28 +27,89 @@
       </span>
     </fieldset>
 
-    <button type="submit" onclick="onStartGame()">Play</button>
-  </section>
-  <section id="BoardWidth" class="board" >
-    <div class="board-item"></div>
-    <div class="board-item"></div>
-    <div class="board-item"></div>
-    <div class="board-item"></div>
-    <div class="board-item"></div>
-    <div class="board-item"></div>
-    <div class="board-item"></div>
-    <div class="board-item"></div>
-    <div class="board-item active"></div>
-    <div class="board-item win"></div>
-    <div class="board-item losing"></div>
-    <div class="board-item"></div>
-<!--    <div *ngFor="let square of chipboardSquares; let i = index" class="container-item" [attr.data-index]="i"
-         [class.active]="square.active"
-         [class.win]="square.win"
-         [class.losing]="square.losing"
-         (click)="userClickSquare(square)"
-    ></div>-->
-  </section>
+    <button type="submit" >Play</button>
+  </form>
+
+ <div class="game__wrap">
+   <section id="info" class="game__info">
+      <div>name</div>
+      <div>time</div>
+    </section>
+
+    <section id="Board" class="board" >
+      <div class="board__item"></div>
+      <div class="board__item"></div>
+      <div class="board__item"></div>
+      <div class="board__item"></div>
+      <div class="board__item"></div>
+      <div class="board__item"></div>
+      <div class="board__item"></div>
+      <div class="board__item"></div>
+      <div class="board__item active"></div>
+      <div class="board__item win"></div>
+      <div class="board__item losing"></div>
+      <div class="board__item"></div>
+    </section>
+ </div>
+</main>
+
+
+
+<script>
+  var time = 0;
+  var running = 0;
+
+  function start() {
+    running = 1;
+    increment();
+    document.getElementById('startPause').style.backgroundColor = 'red';
+    document.getElementById('startPause').style.borderColor = 'red';
+  }
+  function pause() {
+    running = 0;
+    document.getElementById('startPause').style.backgroundColor = 'green';
+    document.getElementById('startPause').style.borderColor = 'green';
+  }
+  function reset() {
+    running = 0;
+    time = 0;
+    document.getElementById('start').innerHTML = 'Start';
+    document.getElementById('output').innerHTML = '0:00:00:00';
+    document.getElementById('startPause').style.backgroundColor = 'green';
+    document.getElementById('startPause').style.borderColor = 'green';
+  }
+  function increment() {
+    if (running == 1) {
+      setTimeout(function () {
+        time++;
+        var mins = Math.floor(time / 10 / 60);
+        var secs = Math.floor((time / 10) % 60);
+        var hours = Math.floor(time / 10 / 60 / 60);
+        var tenths = time % 10;
+        if (mins < 10) {
+          mins = '0' + mins;
+        }
+        if (secs < 10) {
+          secs = '0' + secs;
+        }
+        document.getElementById('output').innerHTML =
+           hours + ':' + mins + ':' + secs + ':' + tenths + '0';
+        increment();
+      }, 100);
+    }
+  }
+</script>
+<div class="container" style="display: none">
+  <h1>
+    <a href="https://www.jsexpert.net/measuring-script-execution-time/">info</a>
+    <p id="output"><b>0:00:00:00</b></p>
+  </h1>
+  <div id="controls" align="center">
+    <button id= "startPause" onclick="start()"><b id="start">Start</b></button>
+
+    <button id="pause" onclick="pause()"><b id="pause">Pause</b></button>
+    <button onclick="reset()" id="reset"><b id="reset">Reset</b></button>
+  </div>
 </div>
 
 </body>
