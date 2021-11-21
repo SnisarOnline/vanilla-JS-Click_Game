@@ -9,6 +9,7 @@
     gulp watch
 ```
 
+build prod version
 ```bash
    gulp prod
    > cd prod/
@@ -44,4 +45,4 @@
 - results in table should be auto update
 
 ### Example of design
-![Example of design](./src/assets/game-example.png)
+![Example of design](https://github.com/SnisarOnline/TestWork-Click_Game/blob/master/src/assets/game-example.png)

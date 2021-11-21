@@ -1,0 +1,247 @@
+:root{
+  --square-dimensions: 50px;
+  --color-Red: Red;
+  --color-Brown: Brown;
+  --color-Orange: Orange;
+  --color-Yellow: Yellow;
+  --color-Lime: Lime;
+  --color-Green: Green;
+  --color-cadetblue: cadetblue;
+  --color-Cyan: Cyan;
+  --color-Blue: Blue;
+  --color-Pink: Pink;
+  --color-Violet: Violet;
+  --color-Purple: Purple;
+  --color-Indigo: Indigo;
+  --color-Black: Black;
+  --color-Grey: Grey;
+  --color-White: White;
+}
+
+@mixin flex_board() {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  //width: calc(6 * var(--square-dimensions));
+
+  & > * {
+    box-sizing: border-box;
+    width: var(--square-dimensions);
+    height: var(--square-dimensions);
+  }
+}
+
+@mixin grid_board($columns, $lineHeight) {
+  //$columns: Количество колонок которое мы хотим видеть
+  $total_columns: $columns * 2; /* Задаем в 2раза больше от нужного,
+            что бы была возможность последние центрировать по среди колонок */
+  $step_column_number: $total_columns/$columns; // Получим количество сечений для смещения
+
+  display: grid;
+  grid-auto-rows: $lineHeight;
+  grid-template-columns: repeat($total_columns, 1fr); /*  */
+
+  & > * {
+    grid-column: span $step_column_number;
+
+    @if ($columns < 4) {
+      &:nth-last-child(#{$columns - 1}):nth-child(#{$columns}n + 1) {
+        grid-column: $step_column_number / span $step_column_number;
+        //grid-column-end: $step_column_number * 2;
+      }
+      @if ($columns > 2) {
+        &:last-child:nth-child(#{$columns}n - 2) {
+          grid-column-end: $step_column_number + 3;
+        }
+      }
+    }
+
+    @if ($columns == 4) {
+      &:nth-last-child(2):nth-child(4n + 1) {
+        grid-column: 3/span 2;
+        //grid-column-end: 5;
+      }
+      &:nth-last-child(3):nth-child(4n + 1) {
+        grid-column-end: 4;
+      }
+      &:last-child:nth-child(4n + 1) {
+        //grid-column: 4/span 2;
+        grid-column-end: 6;
+      }
+    }
+
+
+/*
+    !* Dealing with 2 orphan items *!
+    &:last-child:nth-child(3n - 1) {
+      grid-column-end: -2;
+    }
+    !* Dealing with 2 orphan items *!
+    &:nth-last-child(2):nth-child(3n + 1) {
+      grid-column-end: 4;
+    }
+
+    !* Dealing with single orphan *!
+    &:last-child:nth-child(3n - 2) {
+      grid-column-end: 5;
+    }
+
+    */
+  }
+}
+
+
+.game {
+  .options {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    &__mode {}
+
+    &__name {
+      .error {
+        opacity: 0;
+        display: block;
+      }
+
+      input:invalid + .error {
+        opacity: 1;
+      }
+    }
+
+    button[type='submit'] {
+      align-self: center;
+      padding: 10px 25px;
+      pointer-events: none;
+      cursor: default;
+      background: var(--color-Grey);
+    }
+    &:valid > button[type='submit'] {
+      pointer-events: auto;
+      background: var(--color-White);
+      cursor: pointer;
+    }
+  }
+
+  &__wrap{
+  }
+
+  .info{
+    opacity: 1;
+    max-width: 580px;
+    margin: 30px auto 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    &__title{
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+      box-shadow: 0 0 1px rgb(0 0 0 / 25%);
+      span:first-child{
+      }
+      span{
+        font-size: 1.5em;
+        flex: 1 1 auto;
+        margin: 0 5px;
+      }
+    }
+  }
+
+  .players_list{
+    box-shadow: 0 0 1px rgb(0 0 0 / 30%);
+    max-height: 120px;
+    overflow-y: auto;
+    div{
+      display: flex;
+      justify-content: space-around;
+      margin: 6px 0;
+      padding: 6px 10px;
+      &:hover{
+        box-shadow: 0 0 1px rgb(0 0 0 / 40%);
+        cursor: pointer;
+      }
+      span{
+        flex: 1 1 auto;
+        margin: 0 5px;
+        overflow: hidden;
+        min-width: 20px;
+      }
+    }
+  }
+
+  .board {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #dbdbdb;
+    padding: 30px;
+    margin: 50px auto 0;
+    background: #f3f3f3;
+    box-shadow: 0 0 20px 0 #d5d5d5;
+    min-height: 200px;
+    counter-reset: box-number;
+    /* Добавляем нумерацию для удобства
+       @Info https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset
+       @Info https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters
+     */
+
+
+    /* --flex-- */
+    @include flex_board;
+
+    /* --grid - 2-4 колонки -- */
+    // @include grid_board(3, '20px');
+
+
+    &__item {
+      border: 1px solid #d1d1d1;
+      position: relative;
+      z-index: 0;
+      margin: 5px;
+      cursor: pointer;
+
+      &::after {
+        /* Добавляем нумерацию для красоты */
+        counter-increment: box-number;
+        content: counter(box-number);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      &::before{
+        /* Добавляем нумерацию для красоты */
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: background-color ease-in 50ms;
+      }
+      &:hover::before{
+        background-color: rgb(0 0 0 / 10%);
+        z-index: 1;
+      }
+    }
+
+    .active {
+      background: var(--color-Cyan);
+    }
+
+    .win {
+      background: var(--color-Green);
+    }
+
+    .losing {
+      background: var(--color-Brown);
+    }
+  }
+}

@@ -35,7 +35,7 @@ module.exports = function(options) {
     return multipipe(
       gulp.src(options.src_dev),    // Указываем где искать
       debug({title: "Нашли : "}),  // количество для отладки
-      cached(options.src_dev),     // фильтер файлов сравнением содержимого работает через "watch" отключать если через 1 файл переподключаем
+      // cached(options.src_dev),     // фильтер файлов сравнением содержимого работает через "watch" отключать если через 1 файл переподключаем
       sourcemaps.init(),
       /*
       stylus({
@@ -46,9 +46,9 @@ module.exports = function(options) {
         use : [nib()]         // stylus({use:[nib()]}) ето пример подключения библиотеки
       }),
       */
-      sass(),     // вроде как смысла нету stylus все хавает и sass/scss - Лес непроверял
+      sass({outputStyle: 'expanded'}),     // вроде как смысла нету stylus все хавает и sass/scss - Лес непроверял
 //    shorthand(),  // изза него ИНОГДА невыводит полный путь к месту ошибки -  обьединение свойст в 1 правило
-      autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true}), // Создаем префиксы
+//       autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true}), // Создаем префиксы
       sourcemaps.write(),
       // csso(),    // минимизировать размер css
       gulp.dest(options.src_project),   // Куда записываем css

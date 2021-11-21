@@ -11,7 +11,8 @@
 <body>
 
 <main class="game">
-  <form class="options" action="#" method="get" name="options" autocomplete="on" onsubmit="onStartGame(event)">
+  <form class="options" onsubmit="onStartGame(event)"
+        action="#" method="get" name="options" autocomplete="on" >
     <fieldset class="options__mode">
       <legend>Pick game mode</legend>
       <select name="level" id="List_difficulty" onchange="onChangBoard(event)">
@@ -21,19 +22,22 @@
 
     <fieldset class="options__name">
       <legend>User name</legend>
-      <input type="text" placeholder="Enter you name" required>
-      <span class="error" >
-        Name is <strong>required</strong>
-      </span>
+      <input type="text" name="userName" placeholder="Enter you name" required>
+      <span class="error"> Name is <strong>required</strong> </span>
     </fieldset>
 
     <button type="submit" >Play</button>
   </form>
 
  <div class="game__wrap">
-   <section id="info" class="game__info">
-      <div>name</div>
-      <div>time</div>
+
+   <section id="blockInfo" class="info">
+       <h3 class="info__title">
+           <span>#</span><span>name</span><span>time</span>
+       </h3>
+       <section id="winnersList" class="players_list">
+          <div><span>#</span><span>name</span><span>time</span></div>
+        </section>
     </section>
 
     <section id="Board" class="board" >
