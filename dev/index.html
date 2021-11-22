@@ -15,7 +15,7 @@
         action="#" method="get" name="options" autocomplete="on" >
     <fieldset class="options__mode">
       <legend>Pick game mode</legend>
-      <select name="level" id="List_difficulty" onchange="onChangBoard(event)">
+      <select name="level" id="difficultyList" onchange="onChangBoard(event)">
         <option value="null" selected >null</option>
       </select>
     </fieldset>
@@ -30,17 +30,7 @@
   </form>
 
  <div class="game__wrap">
-
-   <section id="blockInfo" class="info">
-       <h3 class="info__title">
-           <span>#</span><span>name</span><span>time</span>
-       </h3>
-       <section id="winnersList" class="players_list">
-          <div><span>#</span><span>name</span><span>time</span></div>
-        </section>
-    </section>
-
-    <section id="Board" class="board" >
+    <section id="boardId" class="board" >
       <div class="board__item"></div>
       <div class="board__item"></div>
       <div class="board__item"></div>
