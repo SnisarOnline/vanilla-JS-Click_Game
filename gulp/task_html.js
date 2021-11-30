@@ -29,7 +29,7 @@ module.exports = function(options) {
       gulp.src( options.src_dev ),  // откуда берем
       debug({title: "Нашли : "}), // количество для отладки
       cached( options.src_dev ),  //откуда будут изменения для релоуда, сравнением содержимого работает через "watch"
-      htmlmin({collapseWhitespace: true}),    // Минификация html.
+      htmlmin({collapseWhitespace: false}),    // Минификация html.
       gulp.dest( options.src_project ),       // куда пихаем
       debug({title: "Записали : "}),    // количество для отладки
       // connect.reload()

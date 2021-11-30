@@ -47,5 +47,4 @@ package-lock.json
 .directory
 /.git
 .git
-prod/
 

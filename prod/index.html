@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Click Game(vanillaJS)</title>
   <link rel="stylesheet" href="./css/styles.css">
@@ -11,12 +11,11 @@
 <body>
 
 <main class="game">
-  <form class="options" onsubmit="onStartGame(event)"
-        action="#" method="get" name="options" autocomplete="on" >
+  <form class="options" onsubmit="onStartGame(event)" action="#" method="get" name="options" autocomplete="on">
     <fieldset class="options__mode">
       <legend>Pick game mode</legend>
       <select name="level" id="difficultyList" onchange="onChangBoard(event)">
-        <option value="null" selected >null</option>
+        <option value="null" selected="selected">null</option>
       </select>
     </fieldset>
 
@@ -26,11 +25,11 @@
       <span class="error"> Name is <strong>required</strong> </span>
     </fieldset>
 
-    <button type="submit" >Play</button>
+    <button type="submit">Play</button>
   </form>
 
  <div class="game__wrap">
-    <section id="boardId" class="board" >
+    <section id="boardId" class="board">
       <div class="board__item"></div>
       <div class="board__item"></div>
       <div class="board__item"></div>
